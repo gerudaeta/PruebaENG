@@ -15,4 +15,14 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PruebaENG.Domain\PruebaENG.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Users\Commands\ChangeStatusUser" />
+    <Folder Include="Users\Commands\CreateUser" />
+    <Folder Include="Users\Queries" />
+  </ItemGroup>
+
 </Project>
