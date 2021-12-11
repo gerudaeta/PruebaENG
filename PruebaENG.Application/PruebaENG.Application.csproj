@@ -19,8 +19,4 @@
     <ProjectReference Include="..\PruebaENG.Domain\PruebaENG.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Users\Queries" />
-  </ItemGroup>
-
 </Project>
