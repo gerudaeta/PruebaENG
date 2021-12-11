@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PruebaENG.Application.Common.Wrapper;
+using PruebaENG.Application.Dto;
 using PruebaENG.Application.Users.Commands.ChangeStatusUser;
 using PruebaENG.Application.Users.Commands.CreateUser;
+using PruebaENG.Application.Users.Queries.GetUsersActiveWithPaginationRequest;
 
 namespace PruebaENG.Api.Controllers.v1;
 
@@ -30,5 +32,12 @@ public class UsersController : ApiControllerBase
         await Mediator.Send(request);
 
         return NoContent();
+    }
+    
+    [HttpGet("GetUsersActiveWithPagination")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedResult<UserDto>))]
+    public async Task<ActionResult<PaginatedResult<UserDto>>> GetUsersActiveWithPagination([FromQuery] GetUsersActiveWithPaginationRequest request)
+    {
+        return await Mediator.Send(request);
     }
 }
