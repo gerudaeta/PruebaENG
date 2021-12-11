@@ -9,6 +9,7 @@ using PruebaENG.Application.Users.Queries.GetUsersActiveWithPaginationRequest;
 
 namespace PruebaENG.Api.Controllers.v1;
 
+[ApiVersion("1.0")]
 public class UsersController : ApiControllerBase
 {
     [HttpPost("CreateUser")]

@@ -5,7 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace PruebaENG.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Produces("application/json")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public abstract class ApiControllerBase : ControllerBase
 {
     private ISender _mediator;
