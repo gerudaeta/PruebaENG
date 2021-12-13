@@ -5,6 +5,7 @@ using PruebaENG.Application.Common.Wrapper;
 using PruebaENG.Application.Dto;
 using PruebaENG.Application.Users.Commands.ChangeStatusUser;
 using PruebaENG.Application.Users.Commands.CreateUser;
+using PruebaENG.Application.Users.Commands.DeleteUser;
 using PruebaENG.Application.Users.Queries.GetUsersActiveWithPaginationRequest;
 
 namespace PruebaENG.Api.Controllers.v1;
@@ -21,7 +22,6 @@ public class UsersController : ApiControllerBase
     
     [HttpPut("ChangeStatusUser/{id:int}")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<int>))]
     public async Task<ActionResult> ChangeStatusUser(int id, ChangeStatusUserRequest request)
     {
@@ -30,9 +30,7 @@ public class UsersController : ApiControllerBase
             return BadRequest();
         }
 
-        await Mediator.Send(request);
-
-        return NoContent();
+        return Ok(await Mediator.Send(request));
     }
     
     [HttpGet("GetUsersActiveWithPagination")]
@@ -40,5 +38,12 @@ public class UsersController : ApiControllerBase
     public async Task<ActionResult<PaginatedResult<UserDto>>> GetUsersActiveWithPagination([FromQuery] GetUsersActiveWithPaginationRequest request)
     {
         return await Mediator.Send(request);
+    }
+    
+    [HttpDelete("DeleteUser/{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<int>))]
+    public async Task<ActionResult<Response<int>>> DeleteUser(int id)
+    {
+        return Ok(await Mediator.Send(new DeleteUserRequest { Id = id }));
     }
 }
