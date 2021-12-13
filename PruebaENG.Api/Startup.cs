@@ -10,6 +10,7 @@ using PruebaENG.Api.Swagger;
 using PruebaENG.Application;
 using PruebaENG.Infrastructure;
 using PruebaENG.Infrastructure.Persistence;
+using PruebaENG.Infrastructure.Persistence.SeedData;
 
 namespace PruebaENG.Api
 {
@@ -42,6 +43,8 @@ namespace PruebaENG.Api
             services.AddApplication();
             services.AddInfrastructure(Configuration);
             
+            services.AddScoped<IDbInitializer, DbInitializer>();
+            
             services.AddDatabaseDeveloperPageExceptionFilter();
             
             services.AddHttpContextAccessor();
@@ -67,7 +70,7 @@ namespace PruebaENG.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -79,6 +82,7 @@ namespace PruebaENG.Api
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "PruebaENG.Api v1");
                     c.RoutePrefix = string.Empty;
                 });
+                dbInitializer.Initialize().Wait();
             } else {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
